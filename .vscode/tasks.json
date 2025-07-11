@@ -1,0 +1,133 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Python Dependencies",
+      "type": "shell",
+      "command": "pip",
+      "args": ["install", "-r", "security-audit/requirements.txt"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Website Security Scanner",
+      "type": "shell",
+      "command": "python",
+      "args": ["security-audit/website_scanner.py", "${input:websiteUrl}"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate Security Report",
+      "type": "shell",
+      "command": "python",
+      "args": ["security-audit/report_generator.py", "${input:scanFile}"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Open Web Tools",
+      "type": "shell",
+      "command": "start",
+      "args": ["web-tools/index.html"],
+      "windows": {
+        "command": "start",
+        "args": ["web-tools/index.html"]
+      },
+      "linux": {
+        "command": "xdg-open",
+        "args": ["web-tools/index.html"]
+      },
+      "osx": {
+        "command": "open",
+        "args": ["web-tools/index.html"]
+      },
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Live Server",
+      "type": "shell",
+      "command": "python",
+      "args": ["-m", "http.server", "8080", "--directory", "web-tools"],
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Full Security Audit Pipeline",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Install Python Dependencies",
+        "Run Website Security Scanner",
+        "Generate Security Report"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Setup Development Environment",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Install Python Dependencies", "Start Live Server"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "websiteUrl",
+      "description": "Website URL untuk di-scan",
+      "default": "https://example.com",
+      "type": "promptString"
+    },
+    {
+      "id": "scanFile",
+      "description": "Path ke file hasil scan JSON",
+      "default": "security_scan_example.com_*.json",
+      "type": "promptString"
+    }
+  ]
+}

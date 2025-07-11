@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Tools Dashboard - Kampanye Keamanan Siber</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <h1>Security Tools</h1>
+          </div>
+          <nav class="nav">
+            <a href="#home" class="nav-link active">Beranda</a>
+            <a href="#tools" class="nav-link">Tools</a>
+            <a href="#education" class="nav-link">Edukasi</a>
+            <a href="#about" class="nav-link">Tentang</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h2>Lindungi Diri dari Ancaman Digital</h2>
+            <p>
+              Tools keamanan siber untuk ASN dan masyarakat umum. Cegah
+              phishing, buat password yang aman, dan tingkatkan awareness
+              keamanan digital.
+            </p>
+            <a href="#tools" class="cta-button">
+              <i class="fas fa-tools"></i>
+              Mulai Gunakan Tools
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="tools-section">
+        <div class="container">
+          <h2 class="section-title">Tools Keamanan</h2>
+          <div class="tools-grid">
+            <div class="tool-card" id="password-generator-card">
+              <div class="tool-icon">
+                <i class="fas fa-key"></i>
+              </div>
+              <h3>Password Generator</h3>
+              <p>
+                Generate password yang kuat dan aman dengan berbagai kriteria
+                keamanan.
+              </p>
+              <button
+                class="tool-button"
+                onclick="showTool('password-generator')"
+              >
+                <i class="fas fa-arrow-right"></i>
+                Gunakan Tool
+              </button>
+            </div>
+
+            <div class="tool-card" id="password-checker-card">
+              <div class="tool-icon">
+                <i class="fas fa-search"></i>
+              </div>
+              <h3>Password Checker</h3>
+              <p>
+                Cek kekuatan password Anda dan dapatkan rekomendasi perbaikan.
+              </p>
+              <button
+                class="tool-button"
+                onclick="showTool('password-checker')"
+              >
+                <i class="fas fa-arrow-right"></i>
+                Gunakan Tool
+              </button>
+            </div>
+
+            <div class="tool-card" id="phishing-checker-card">
+              <div class="tool-icon">
+                <i class="fas fa-link"></i>
+              </div>
+              <h3>URL Safety Checker</h3>
+              <p>
+                Periksa keamanan URL dan dapatkan tips menghindari phishing.
+              </p>
+              <button
+                class="tool-button"
+                onclick="showTool('phishing-checker')"
+              >
+                <i class="fas fa-arrow-right"></i>
+                Gunakan Tool
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Password Generator Tool -->
+      <section id="password-generator" class="tool-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-key"></i> Password Generator</h3>
+            <button
+              class="close-button"
+              onclick="hideTool('password-generator')"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="password-length">Panjang Password:</label>
+              <input
+                type="range"
+                id="password-length"
+                min="8"
+                max="50"
+                value="16"
+              />
+              <span id="length-display">16</span>
+            </div>
+
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="include-uppercase" checked />
+                <span class="checkmark"></span>
+                Huruf Besar (A-Z)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="include-lowercase" checked />
+                <span class="checkmark"></span>
+                Huruf Kecil (a-z)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="include-numbers" checked />
+                <span class="checkmark"></span>
+                Angka (0-9)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="include-symbols" checked />
+                <span class="checkmark"></span>
+                Simbol (!@#$%^&*)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="exclude-ambiguous" />
+                <span class="checkmark"></span>
+                Hindari Karakter Ambigu (0, O, l, I)
+              </label>
+            </div>
+
+            <button class="generate-button" onclick="generatePassword()">
+              <i class="fas fa-sync-alt"></i>
+              Generate Password
+            </button>
+
+            <div class="password-output">
+              <input
+                type="text"
+                id="generated-password"
+                readonly
+                placeholder="Password akan muncul di sini..."
+              />
+              <button
+                class="copy-button"
+                onclick="copyPassword()"
+                title="Copy Password"
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+
+            <div id="password-strength" class="strength-indicator"></div>
+
+            <div class="tips">
+              <h4><i class="fas fa-lightbulb"></i> Tips Keamanan Password:</h4>
+              <ul>
+                <li>Gunakan minimal 12 karakter untuk keamanan optimal</li>
+                <li>Kombinasikan huruf besar, kecil, angka, dan simbol</li>
+                <li>Jangan gunakan informasi pribadi (nama, tanggal lahir)</li>
+                <li>Gunakan password manager untuk menyimpan password</li>
+                <li>Aktifkan 2FA (Two-Factor Authentication) jika tersedia</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Password Checker Tool -->
+      <section id="password-checker" class="tool-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-search"></i> Password Checker</h3>
+            <button class="close-button" onclick="hideTool('password-checker')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="password-input">Masukkan Password untuk Dicek:</label>
+              <div class="password-input-container">
+                <input
+                  type="password"
+                  id="password-input"
+                  placeholder="Masukkan password Anda..."
+                />
+                <button
+                  class="toggle-visibility"
+                  onclick="togglePasswordVisibility()"
+                >
+                  <i class="fas fa-eye" id="visibility-icon"></i>
+                </button>
+              </div>
+              <small class="privacy-note">
+                <i class="fas fa-shield-alt"></i>
+                Password Anda tidak disimpan atau dikirim ke server manapun
+              </small>
+            </div>
+
+            <button class="check-button" onclick="checkPassword()">
+              <i class="fas fa-shield-alt"></i>
+              Cek Kekuatan Password
+            </button>
+
+            <div id="password-analysis" class="analysis-result"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- URL Safety Checker Tool -->
+      <section id="phishing-checker" class="tool-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-link"></i> URL Safety Checker</h3>
+            <button class="close-button" onclick="hideTool('phishing-checker')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="url-input">Masukkan URL untuk Dicek:</label>
+              <input
+                type="url"
+                id="url-input"
+                placeholder="https://example.com"
+              />
+            </div>
+
+            <button class="check-button" onclick="checkURL()">
+              <i class="fas fa-search"></i>
+              Cek Keamanan URL
+            </button>
+
+            <div id="url-analysis" class="analysis-result"></div>
+
+            <div class="phishing-tips">
+              <h4>
+                <i class="fas fa-exclamation-triangle"></i> Tanda-tanda
+                Phishing:
+              </h4>
+              <ul>
+                <li>URL yang mencurigakan atau typosquatting</li>
+                <li>Tidak menggunakan HTTPS (http:// alih-alih https://)</li>
+                <li>Domain yang mirip tapi tidak sama dengan situs resmi</li>
+                <li>Permintaan data pribadi atau password melalui email</li>
+                <li>Pesan mendesak atau ancaman</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="education-section">
+        <div class="container">
+          <h2 class="section-title">Edukasi Keamanan Siber</h2>
+          <div class="education-grid">
+            <div class="education-card">
+              <div class="education-icon">
+                <i class="fas fa-fish"></i>
+              </div>
+              <h3>Mengenal Phishing</h3>
+              <p>
+                Pelajari cara mengidentifikasi dan menghindari serangan phishing
+                yang dapat mencuri data pribadi Anda.
+              </p>
+            </div>
+            <div class="education-card">
+              <div class="education-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <h3>Password Security</h3>
+              <p>
+                Best practices untuk membuat dan mengelola password yang aman
+                untuk melindungi akun digital Anda.
+              </p>
+            </div>
+            <div class="education-card">
+              <div class="education-icon">
+                <i class="fas fa-wifi"></i>
+              </div>
+              <h3>Keamanan WiFi</h3>
+              <p>
+                Tips menggunakan WiFi publik dengan aman dan melindungi data
+                saat browsing online.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>Kampanye Keamanan Siber</h4>
+            <p>Melindungi Indonesia dari ancaman digital</p>
+          </div>
+          <div class="footer-section">
+            <h4>Kontak</h4>
+            <p>Email: security@kampanyesiber.id</p>
+            <p>Hotline: 0800-SIBER-AMAN</p>
+          </div>
+          <div class="footer-section">
+            <h4>Resources</h4>
+            <a href="#" class="footer-link">Panduan Keamanan</a>
+            <a href="#" class="footer-link">Report Phishing</a>
+            <a href="#" class="footer-link">Security Updates</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 Kampanye Keamanan Siber Indonesia. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
