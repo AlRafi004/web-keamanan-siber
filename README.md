@@ -80,11 +80,11 @@ python security-audit/website_scanner.py
 
 ```
 Kampanye Keamanan Siber/
-├── web-tools/              # Web-based security tools
-├── security-audit/         # Python audit scripts
+├── web-tools/             # Web-based security tools
+├── security-audit/        # Python audit scripts
 ├── reports/               # Laporan dan template
 ├── campaign-materials/    # Materi kampanye
-└── README.md             # Dokumentasi utama
+└── README.md              # Dokumentasi utama
 ```
 
 ---
